@@ -5,7 +5,7 @@ import PageLayout from '../components/PageLayout';
 import { Card, CardBody, Button, StatusPill } from '../components/ui';
 import BoxDetailDrawer from '../components/BoxDetailDrawer';
 import { fetchBoxes, fetchProjects } from '../api/endpoints';
-import { api } from '../api/client';
+import { supabase } from '../api/supabase';
 import { getUser } from '../lib/auth';
 import { useUserDirectory } from '../lib/users';
 import type { Box, Project } from '../types';
@@ -43,13 +43,13 @@ export default function RiskViewPage() {
   async function handleRecheck() {
     setRecheckBusy(true);
     try {
-      const { data } = await api.post('/admin/run-risk-check');
-      alert(data.flagged_count > 0
-        ? `${data.flagged_count}개 박스가 새로 리스크 플래그되었습니다.`
-        : '추가로 탐지된 리스크 박스가 없습니다.');
+      await supabase.rpc('check_risk_boxes');
       await load();
+      alert(boxes.length > 0
+        ? '리스크 체크 완료. 목록이 갱신되었습니다.'
+        : '추가로 탐지된 리스크 박스가 없습니다.');
     } catch (err: any) {
-      alert(err.response?.data?.detail ?? '실행 실패');
+      alert(err.message ?? '실행 실패');
     } finally {
       setRecheckBusy(false);
     }

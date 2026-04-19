@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
-import { api } from '../api/client';
+import { fetchUsers } from '../api/endpoints';
 import type { User } from '../types';
 
 interface UserDirectory {
@@ -16,10 +16,10 @@ export function UserDirectoryProvider({ children }: { children: ReactNode }) {
 
   async function reload() {
     try {
-      const { data } = await api.get<User[]>('/users');
+      const data = await fetchUsers();
       setUsers(data);
     } catch {
-      // ignore — 로그인 전일 수 있음
+      // ignore
     }
   }
 

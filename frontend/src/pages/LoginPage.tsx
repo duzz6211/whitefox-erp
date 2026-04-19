@@ -21,7 +21,7 @@ export default function LoginPage() {
       saveAuth(res.access_token, res.user);
       navigate('/dashboard');
     } catch (err: any) {
-      setError(err.response?.data?.detail ?? '로그인 실패');
+      setError(err.message ?? '로그인 실패');
     } finally {
       setLoading(false);
     }
