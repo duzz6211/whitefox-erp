@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand: #0066cc;
+  --color-brand-light: #5c9ce6;
+  --color-success: #28a745;
+  --color-warning: #ffc107;
+  --color-danger: #dc3545;
+  --color-sidebar: #343a40;
+  --color-sidebar-hover: #495057;
+  --color-app-bg: #f5f5f5;
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f5f5f5;
+  color: #212529;
+}
+
+/* 카드 기본 그림자 */
+.shadow-card {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+}
+
+/* 사이드바 호버 트랜지션 */
+.sidebar-link {
+  transition: background-color 0.2s ease;
+}
